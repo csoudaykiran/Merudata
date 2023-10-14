@@ -3372,11 +3372,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\login\\AngularAPI\\AngularAPI\\AngularAPI.csproj",
+      "projectUniqueName": "D:\\login\\Backend\\AngularAPI\\AngularAPI.csproj",
       "projectName": "AngularAPI",
-      "projectPath": "D:\\login\\AngularAPI\\AngularAPI\\AngularAPI.csproj",
+      "projectPath": "D:\\login\\Backend\\AngularAPI\\AngularAPI.csproj",
       "packagesPath": "C:\\Users\\uday9\\.nuget\\packages\\",
-      "outputPath": "D:\\login\\AngularAPI\\AngularAPI\\obj\\",
+      "outputPath": "D:\\login\\Backend\\AngularAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\uday9\\AppData\\Roaming\\NuGet\\NuGet.Config",
