@@ -1,0 +1,19 @@
+<div class="container">
+  <h2>Add City</h2>
+  <form (ngSubmit)="addCity()">
+    <div class="form-group">
+      <label for="cityName">City Name:</label>
+      <input type="text" id="cityName" name="cityName" [(ngModel)]="newCityName" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add City</button>
+  </form>
+</div>
+
+
+<div class="container">
+    <h2>Cities</h2>
+    <ul class="list-group">
+      <li *ngFor="let city of cities" class="list-group-item">{{ city.cityName }}</li>
+    </ul>
+  </div>
+  

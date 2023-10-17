@@ -5,13 +5,14 @@ import { SignupComponent } from './components/signup/signup.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { CityComponent } from './components/city/city.component';
 
 const routes: Routes = [
   {path:'login',component: LoginComponent},
   {path:'signup',component: SignupComponent},
   {path:'',component: LoginComponent},
   {path: 'dashboard',component: HomeComponent},
-  {path:'dashboard/contact',component:ContactComponent},
+  {path:'dashboard/contact',component:CityComponent},
 ];
 
 @NgModule({
