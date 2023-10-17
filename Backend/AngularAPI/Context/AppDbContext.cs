@@ -1,5 +1,6 @@
 ﻿using AngularAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using MovieTicketBookingApp.Models;
 
 namespace AngularAPI.Context
 {
@@ -10,10 +11,16 @@ namespace AngularAPI.Context
         }
 
         public DbSet<User> Users { get; set; }
+        
+        public DbSet<City> Cities { get; set; } 
+
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
             modelbuilder.Entity<User>().ToTable("users");
+
+            modelbuilder.Entity<City>().ToTable("cities");
+           
         }
     }
 }
