@@ -1,0 +1,15 @@
+<div *ngFor="let movie of movies" class="movie-card">
+  <div class="container">
+    <img [src]="movie.imgLink" alt="{{ movie.title }}" width="50" height="400"/>
+  </div>
+  <div class="details">
+    <h3>{{ movie.title }}</h3>
+    <p>{{ movie.description }}</p>
+    <p>Duration: {{ movie.duration }} minutes</p>
+    <p>Language: {{ movie.language }}</p>
+    <p>Release Date: {{ movie.releaseDate | date }}</p>
+    <p>Censorship: {{ movie.censorship }}</p>
+    <p>Country: {{ movie.country }}</p>
+    <a [href]="movie.trailerLink" target="_blank">Watch Trailer</a>
+  </div>
+</div>

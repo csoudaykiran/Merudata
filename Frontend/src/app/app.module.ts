@@ -17,6 +17,7 @@ import { TestService } from './test.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContactComponent } from './components/contact/contact.component';
 import { CityComponent } from './components/city/city.component';
+import { MoviesComponent } from './components/movies/movies.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CityComponent } from './components/city/city.component';
     NavbarComponent,
     ContactComponent,
     CityComponent,
+    MoviesComponent,
   ],
   imports: [
     BrowserModule,
