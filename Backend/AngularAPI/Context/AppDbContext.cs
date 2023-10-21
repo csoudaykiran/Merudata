@@ -12,7 +12,9 @@ namespace AngularAPI.Context
 
         public DbSet<User> Users { get; set; }
         
-        public DbSet<City> Cities { get; set; } 
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Movie> Movies { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
@@ -20,6 +22,8 @@ namespace AngularAPI.Context
             modelbuilder.Entity<User>().ToTable("users");
 
             modelbuilder.Entity<City>().ToTable("cities");
+
+            modelbuilder.Entity<Movie>().ToTable("movies");
            
         }
     }
