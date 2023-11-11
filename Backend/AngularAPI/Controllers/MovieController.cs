@@ -38,15 +38,27 @@ namespace YourNamespace.Controllers
             return Ok(movie);
         }
 
-        // POST: api/Movie
         [HttpPost]
         public async Task<ActionResult<Movie>> PostMovie(Movie movie)
         {
+            // Ensure the specified location exists
+            var location = await _context.Locations.FindAsync(movie.LocationId);
+
+            if (location == null)
+            {
+                return BadRequest("Invalid LocationId");
+            }
+
+            // Link the location with the movie
+            movie.Location = location;
+
             _context.Movies.Add(movie);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMovie", new { id = movie.MovieID }, movie);
+            return CreatedAtAction(nameof(GetMovie), new { id = movie.MovieID }, movie);
         }
+
+
 
         // PUT: api/Movie/5
         [HttpPut("{id}")]
@@ -56,6 +68,17 @@ namespace YourNamespace.Controllers
             {
                 return BadRequest();
             }
+
+            // Ensure the specified location exists
+            var location = await _context.Locations.FindAsync(movie.LocationId);
+
+            if (location == null)
+            {
+                return BadRequest("Invalid LocationId");
+            }
+
+            // Link the location with the movie
+            movie.Location = location;
 
             _context.Entry(movie).State = EntityState.Modified;
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AngularAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -54,7 +55,15 @@ namespace MovieTicketBookingApp.Models
         [Required]
         public string TrailerLink { get; set; }
 
-        
+        [Required]
+        // Foreign key for the location
+        public int LocationId { get; set; }
+
+        // Navigation property
+        public Location Location { get; set; }
+
+
+
 
     }
 }

@@ -1,68 +1,42 @@
-/* movie-card.component.css */
-
+/* styles.css or movies.component.css */
 .movie-card {
-    background-color: #1c1b29;
-    border-radius: 20px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.18);
-  }
-  
-  .movie-card:hover {
-    transform: scale(1.1);
-  }
-  
-  .container {
-    position: relative;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  }
-  
-  .container img {
-    width: 100%;
-    display: block;
-    border-radius: 20px 20px 0 0;
-  }
-  
-  .container:after {
-    content: "";
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 20px 20px 0 0;
-    opacity: 0.7;
-  }
-  
-  .details {
-    padding: 20px 10px;
-  }
-  
-  .details > h3 {
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 18px;
-    margin: 10px 0 15px 0;
-  }
-  
-  .details > p {
-    color: #a0a0a0;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
-  }
-  
-  .details > button {
-    background-color: royalblue;
-    padding: 10px;
-    text-decoration: none;
-    color: white;
-    border-radius: 10px;
-    left: 50%;
-    bottom: 0;
-  }
-  
-  .details > button:hover {
-    background-color: turquoise;
-    color: black;
-    transform: scale(1.1);
-  }
-  
+  display: flex;
+  margin: 20px;
+  transition: transform 0.3s;
+}
+
+.movie-card:hover {
+  transform: scale(1.05); /* Increase the size on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.container {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+img {
+  width: 300px; /* Set your desired width */
+  height: 400px; /* Set your desired height */
+  border-radius: 8px;
+}
+
+.details {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 0 0 8px 8px;
+}
+
+a {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+a:hover {
+  background-color: #2980b9;
+}

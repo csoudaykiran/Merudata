@@ -1,4 +1,6 @@
 export interface Movie {
+    locationId: any;
+    location: any;
     movieID: number;
     title: string;
     imgLink: string;

@@ -16,6 +16,8 @@ namespace AngularAPI.Context
 
         public DbSet<Movie> Movies { get; set; }
 
+        public DbSet<Location> Locations { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {

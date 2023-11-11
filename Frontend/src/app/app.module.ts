@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContactComponent } from './components/contact/contact.component';
 import { CityComponent } from './components/city/city.component';
 import { MoviesComponent } from './components/movies/movies.component';
+import { LocationComponent } from './components/location/location.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { MoviesComponent } from './components/movies/movies.component';
     ContactComponent,
     CityComponent,
     MoviesComponent,
+    LocationComponent,
   ],
   imports: [
     BrowserModule,
