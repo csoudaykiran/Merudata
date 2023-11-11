@@ -57,10 +57,10 @@ namespace MovieTicketBookingApp.Models
 
         [Required]
         // Foreign key for the location
-        public int LocationId { get; set; }
+        public int CityId { get; set; }
 
         // Navigation property
-        public Location Location { get; set; }
+        public City City { get; set; }
 
 
 

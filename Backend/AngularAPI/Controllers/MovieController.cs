@@ -42,7 +42,7 @@ namespace YourNamespace.Controllers
         public async Task<ActionResult<Movie>> PostMovie(Movie movie)
         {
             // Ensure the specified location exists
-            var location = await _context.Locations.FindAsync(movie.LocationId);
+            var location = await _context.Cities.FindAsync(movie.CityId);
 
             if (location == null)
             {
@@ -50,7 +50,7 @@ namespace YourNamespace.Controllers
             }
 
             // Link the location with the movie
-            movie.Location = location;
+            movie.City = location;
 
             _context.Movies.Add(movie);
             await _context.SaveChangesAsync();
@@ -70,7 +70,7 @@ namespace YourNamespace.Controllers
             }
 
             // Ensure the specified location exists
-            var location = await _context.Locations.FindAsync(movie.LocationId);
+            var location = await _context.Cities.FindAsync(movie.CityId);
 
             if (location == null)
             {
@@ -78,7 +78,7 @@ namespace YourNamespace.Controllers
             }
 
             // Link the location with the movie
-            movie.Location = location;
+            movie.City = location;
 
             _context.Entry(movie).State = EntityState.Modified;
 

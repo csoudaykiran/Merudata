@@ -1,6 +1,7 @@
 ﻿using AngularAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using MovieTicketBookingApp.Models;
+using System.Reflection.Emit;
 
 namespace AngularAPI.Context
 {
@@ -16,8 +17,11 @@ namespace AngularAPI.Context
 
         public DbSet<Movie> Movies { get; set; }
 
-        public DbSet<Location> Locations { get; set; }
+        public DbSet<Seat> seats { get; set; }
 
+        public DbSet<CinemaHall> CinemaHalls { get; set; }
+
+        public DbSet<Booking> Bookings { get; set; }    
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
@@ -26,7 +30,17 @@ namespace AngularAPI.Context
             modelbuilder.Entity<City>().ToTable("cities");
 
             modelbuilder.Entity<Movie>().ToTable("movies");
-           
+
+
+
+            modelbuilder.Entity<CinemaHall>()
+            .HasOne(ch => ch.Movie)
+            .WithMany()
+            .HasForeignKey(ch => ch.MovieId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelbuilder);
+
         }
     }
 }

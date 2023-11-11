@@ -4,6 +4,7 @@ using AngularAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AngularAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231111154249_cinemahall")]
+    partial class cinemahall
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,39 +24,6 @@ namespace AngularAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AngularAPI.Models.Booking", b =>
-                {
-                    b.Property<int>("BookingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
-
-                    b.Property<int>("CinemaHallId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("SelectedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SelectedSeats")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SelectedShow")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("BookingId");
-
-                    b.HasIndex("CinemaHallId");
-
-                    b.ToTable("Bookings");
-                });
 
             modelBuilder.Entity("AngularAPI.Models.CinemaHall", b =>
                 {
@@ -74,39 +44,7 @@ namespace AngularAPI.Migrations
 
                     b.HasKey("CinemaHallId");
 
-                    b.HasIndex("MovieId");
-
                     b.ToTable("CinemaHalls");
-                });
-
-            modelBuilder.Entity("AngularAPI.Models.Seat", b =>
-                {
-                    b.Property<int>("SeatId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
-
-                    b.Property<int>("CinemaHallId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsBooked")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("SeatName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SeatType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SeatId");
-
-                    b.HasIndex("CinemaHallId");
-
-                    b.ToTable("seats");
                 });
 
             modelBuilder.Entity("AngularAPI.Models.User", b =>
@@ -211,39 +149,6 @@ namespace AngularAPI.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("movies", (string)null);
-                });
-
-            modelBuilder.Entity("AngularAPI.Models.Booking", b =>
-                {
-                    b.HasOne("AngularAPI.Models.CinemaHall", "CinemaHall")
-                        .WithMany()
-                        .HasForeignKey("CinemaHallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CinemaHall");
-                });
-
-            modelBuilder.Entity("AngularAPI.Models.CinemaHall", b =>
-                {
-                    b.HasOne("MovieTicketBookingApp.Models.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("AngularAPI.Models.Seat", b =>
-                {
-                    b.HasOne("AngularAPI.Models.CinemaHall", "CinemaHall")
-                        .WithMany()
-                        .HasForeignKey("CinemaHallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CinemaHall");
                 });
 
             modelBuilder.Entity("MovieTicketBookingApp.Models.Movie", b =>
