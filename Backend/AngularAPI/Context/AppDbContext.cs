@@ -23,6 +23,8 @@ namespace AngularAPI.Context
 
         public DbSet<Booking> Bookings { get; set; }    
 
+        public DbSet<Hall> Halls { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
             modelbuilder.Entity<User>().ToTable("users");

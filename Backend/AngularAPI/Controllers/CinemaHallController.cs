@@ -1,6 +1,7 @@
 ﻿using AngularAPI.Context;
 using AngularAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AngularAPI.Controllers
 {
@@ -33,6 +34,39 @@ namespace AngularAPI.Controllers
             }
 
             return Ok(cinemaHall);
+        }
+
+        
+
+        [HttpGet("getmoviesbycities/{cityId}")]
+        public IActionResult GetMoviesByCities(int cityId)
+        {
+            var movies = _context.Movies.Where(m => m.CityId == cityId).ToList();
+            return Ok(movies);
+        }
+
+        
+
+
+        [HttpPost("addseats/{cinemaHallId}")]
+        public IActionResult AddSeats(int cinemaHallId, [FromBody] List<Seat> seats)
+        {
+            var cinemaHall = _context.CinemaHalls.FirstOrDefault(ch => ch.CinemaHallId == cinemaHallId);
+
+            if (cinemaHall == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var seat in seats)
+            {
+                seat.CinemaHallId = cinemaHallId;
+                _context.seats.Add(seat);
+            }
+
+            _context.SaveChanges();
+
+            return Ok(seats);
         }
 
         [HttpPost]
