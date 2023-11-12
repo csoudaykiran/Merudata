@@ -1,92 +1,122 @@
-.outer{
+/* Set a background image with a movie theme */
+
+
+.outer {
     height: 100vh;
-    background: linear-gradient(to top, #09f4ec 50%,#0cece4 90%)no-repeat;
+    background:url('image.png') center/cover no-repeat;
 }
 
-.panel-heading{
+/* Style the panel heading for login/signup */
+.panel-heading {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* Increase spacing */
+    font-size: 24px; /* Larger font size */
+    color: #000000; /* White text color */
 }
 
-#forget{
-    min-width: 100px;
+/* Style the "Forgot Password?" link */
+#forget {
+    min-width: 120px; /* Wider button */
     margin-left: auto;
     text-decoration: none;
     cursor: pointer;
+    color: #fdd835; /* Yellow text color */
+    font-weight: bold; /* Make it bold */
 }
 
-a:hover{
-    text-decoration: none;
+/* Improve hover effect on links */
+a:hover {
+    text-decoration: underline; /* Underline on hover */
 }
 
-.form-inline label{
-    padding-left: 10px;
-    margin: 0;
+/* Style the form labels */
+.form-inline label {
+    padding-left: 0; /* Remove padding */
+    margin: 10px 0; /* Add vertical margin */
     cursor: pointer;
-}
-.btn{
-    margin-top: 20px;
-    border-radius: 15px;
+    color: #fff; /* White text color */
+    font-weight: bold; /* Make it bold */
 }
 
-.panel{
-    min-height: 380px;
-    box-shadow: 20px 20px 80px rgb(218, 218, 218);
-    border-radius: 12px;
-    margin-top: 100px;
+/* Style the buttons */
+.btn {
+    margin-top: 30px; /* Increase spacing */
+    border-radius: 25px; /* Rounder buttons */
+    background-color: #fdd835; /* Yellow button color */
+    color: #000; /* Black text color */
+    font-weight: bold; /* Make it bold */
 }
 
-.input-field{
-    border-radius: 5px;
-    padding: 5px;
+/* Style the login/signup panel */
+.panel {
+    min-height: 400px; /* Slightly taller panel */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Softer shadow */
+    border-radius: 15px; /* Rounder corners */
+    margin-top: 80px; /* Adjust spacing */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+}
+
+/* Style the input fields */
+.input-field {
+    border-radius: 8px; /* Slightly rounder borders */
+    padding: 10px; /* More padding */
     display: flex;
     align-items: center;
     cursor: pointer;
-    border: 1px solid #ddd;
-    color: #1bd13d;
+    border: 2px solid #fdd835; /* Yellow border */
+    color: #4343ff;
+    background-color: #fff; /* White background */
 }
 
-.input-field.error{
-    border: 1px solid red;
+/* Highlight errors with red */
+.input-field.error {
+    border: 2px solid red; /* Red border */
     color: red;
 }
 
+/* Style the input fields */
 input[type='text'],
-input[type='password']{
+input[type='password'] {
     border: none;
     outline: none;
     box-shadow: none;
     width: 100%;
+    font-size: 16px; /* Adjust font size */
+    padding: 8px; /* Adjust padding */
 }
 
-.fa-eye-slash.btn{
+/* Style the password visibility icon */
+.fa-eye-slash.btn {
     border: none;
     outline: none;
     box-shadow: none;
+    color: #777; /* Gray color */
 }
 
-img{
-    width: 40px;
-    height: 40px;
+/* Style user profile images */
+img {
+    width: 60px; /* Slightly larger */
+    height: 60px; /* Slightly taller */
     object-fit: cover;
     border-radius: 50%;
     position: relative;
+    border: 2px solid #fdd835; /* Yellow border */
 }
 
-.bordert{
-    border-top: 1px solid #aaa;
+/* Style the "or connect with" separator */
+.bordert {
+    border-top: 2px solid #fff; /* White separator line */
     position: relative;
 }
 
-/* .bordert:after{
-    content:"or connect with";
+.bordert:after {
+    content: "or connect with";
     position: absolute;
-    top: -13px;
-    left: 33%;
+    top: -14px; /* Adjust positioning */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Center it precisely */
     background-color: #fff;
-    padding: 0 8px;
-} */
-
-
-
+    padding: 0 10px; /* Add padding */
+    font-weight: bold; /* Make it bold */
+}
 

@@ -1,69 +1,33 @@
-﻿using AngularAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-
-namespace MovieTicketBookingApp.Models
+namespace AngularAPI.Models
 {
     public class Movie
     {
-        // User ID is the Primary Key 
-        [Key] // DataAnnotations used to declare that it is a primary key.
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Creating a Auto incremented ID - sql example(Identity(1,1))
-        [Column(TypeName = "int")]
-        [Required]
-        public int MovieID { get; set; }
+        [Key]
+        public int MovieId { get; set; }
 
-        [Column(TypeName = "nvarchar(256)")]
         [Required]
+        [StringLength(100)]
         public string Title { get; set; }
 
-        [Column(TypeName = "nvarchar(512)")]
         [Required]
-        public string ImgLink { get; set; }
-
-        [Column(TypeName = "nvarchar(512)")]
-        [Required]
-        public string Description { get; set; }
-
-        [Column(TypeName = "int")]
-        [Required]
-        public int Duration { get; set; }
-
-        [Column(TypeName = "nvarchar(16)")]
-        [Required]
+        [StringLength(50)]
         public string Language { get; set; }
 
-        [Column(TypeName = "datetime")]
-        [Required]
+        public int DurationMinutes { get; set; }
+
         public DateTime ReleaseDate { get; set; }
 
-        [Column(TypeName = "nvarchar(36)")]
-        [Required]
-        public string Censorship { get; set; }
+        [StringLength(1000)]
+        public string PosterUrl { get; set; }
 
-        [Column(TypeName = "varchar(20)")]
-        [Required]
-        public string Country { get; set; }
+        // Foreign key for City
+        public int CityID { get; set; }
 
-
-        [Column(TypeName = "nvarchar(100)")]
-        [Required]
-        public string TrailerLink { get; set; }
-
-        [Required]
-        // Foreign key for the location
-        public int CityId { get; set; }
-
-        // Navigation property
+        // Navigation property to City
+        [ForeignKey("CityID")]
         public City City { get; set; }
-
-
-
-
     }
 }

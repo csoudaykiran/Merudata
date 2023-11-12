@@ -1,88 +1,109 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AngularAPI.Context;
+using AngularAPI.Migrations;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AngularAPI.Context; // Import your DbContext
-using MovieTicketBookingApp.Models; // Import your City model
+using AngularAPI.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace MovieTicketBookingApp.Controllers
+
+[Route("api/cities")]
+[ApiController]
+public class CityController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CityController : ControllerBase
+    private readonly AppDbContext _context;
+
+    public CityController(AppDbContext context)
     {
-        private readonly AppDbContext _context; // Your DbContext instance
+        _context = context;
+    }
 
-        public CityController(AppDbContext context)
+    // GET: api/cities
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<City>>> GetCities()
+    {
+        return await _context.Cities.ToListAsync();
+    }
+
+    // GET: api/cities/{id}
+    [HttpGet("{id}")]
+    public async Task<ActionResult<City>> GetCity(int id)
+    {
+        var city = await _context.Cities.FindAsync(id);
+
+        if (city == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        // GET: api/City
-        [HttpGet]
-        public IActionResult GetCities()
+        return city;
+    }
+
+    // POST: api/cities
+    [HttpPost]
+    public async Task<ActionResult<City>> PostCity(City city)
+    {
+        _context.Cities.Add(city);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction("GetCity", new { id = city.CityID }, city);
+    }
+
+    // PUT: api/cities/{id}
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutCity(int id, City city)
+    {
+        if (id != city.CityID)
         {
-            var cities = _context.Cities;
-            return Ok(cities);
+            return BadRequest();
         }
 
-        // GET: api/City/{id}
-        [HttpGet("{id}")]
-        public IActionResult GetCity(int id)
-        {
-            var city = _context.Cities.Find(id);
+        _context.Entry(city).State = EntityState.Modified;
 
-            if (city == null)
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!CityExists(id))
             {
                 return NotFound();
             }
-
-            return Ok(city);
-        }
-
-        // POST: api/City
-        [HttpPost]
-        public IActionResult CreateCity([FromBody] City city)
-        {
-            if (!ModelState.IsValid)
+            else
             {
-                return BadRequest(ModelState);
+                throw;
             }
-
-            _context.Cities.Add(city);
-            _context.SaveChanges();
-
-            return CreatedAtAction(nameof(GetCity), new { id = city.CityId }, city);
         }
 
-        // PUT: api/City/{id}
-        [HttpPut("{id}")]
-        public IActionResult UpdateCity(int id, [FromBody] City city)
+        return NoContent();
+    }
+
+    [HttpGet("ByCity/{city}")]
+    public IActionResult GetMoviesByCity(int cityID)
+    {
+        var movies = _context.Movies.Where(m => m.CityID == cityID).ToList();
+        return Ok(movies);
+    }
+
+    // DELETE: api/cities/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCity(int id)
+    {
+        var city = await _context.Cities.FindAsync(id);
+        if (city == null)
         {
-            if (id != city.CityId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(city).State = EntityState.Modified;
-            _context.SaveChanges();
-
-            return NoContent();
+            return NotFound();
         }
 
-        // DELETE: api/City/{id}
-        [HttpDelete("{id}")]
-        public IActionResult DeleteCity(int id)
-        {
-            var city = _context.Cities.Find(id);
+        _context.Cities.Remove(city);
+        await _context.SaveChangesAsync();
 
-            if (city == null)
-            {
-                return NotFound();
-            }
+        return NoContent();
+    }
 
-            _context.Cities.Remove(city);
-            _context.SaveChanges();
-
-            return NoContent();
-        }
+    private bool CityExists(int id)
+    {
+        return _context.Cities.Any(e => e.CityID == id);
     }
 }

@@ -6,6 +6,10 @@ using AngularAPI.Models;
 using AngularAPI.Helpers;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.IdentityModel.Tokens.Jwt;
+using System;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AngularAPI.Controllers
 {
@@ -43,8 +47,11 @@ namespace AngularAPI.Controllers
                 return BadRequest(new { Message = "Password is incorrect" });
             }
 
+            user.Token = CreateJwt(user);
+
             return Ok(new
             {
+                Token = user.Token,
                 Message = "Login Success"
             });
         }
@@ -120,8 +127,34 @@ namespace AngularAPI.Controllers
             return sb.ToString();
         }
 
+        private string CreateJwt(User user)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("veryverysecret.....");
+            var identity = new ClaimsIdentity(new Claim[]
+            {
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim(ClaimTypes.Name,$"{user.FirstName}", user.LastName),
+            });
+
+            var Credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = identity,
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = Credentials
+            };
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            return jwtTokenHandler.WriteToken(token);
+        }
 
 
+        [HttpGet]
+        public async Task<ActionResult<User>> GetAllUsers()
+        {
+            return Ok(await _authcontext.Users.ToListAsync());
+        }
 
 
     }

@@ -16,6 +16,11 @@ D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\AngularAPI.AssemblyInfo.cs
 D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\AngularAPI.csproj.CoreCompileInputs.cache
 D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\AngularAPI.MvcApplicationPartsAssemblyInfo.cs
 D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\AngularAPI.MvcApplicationPartsAssemblyInfo.cache
+D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\staticwebassets\msbuild.AngularAPI.Microsoft.AspNetCore.StaticWebAssets.props
+D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\staticwebassets\msbuild.build.AngularAPI.props
+D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.AngularAPI.props
+D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.AngularAPI.props
+D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\staticwebassets.pack.json
 D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\staticwebassets.build.json
 D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\staticwebassets.development.json
 D:\login\AngularAPI\AngularAPI\obj\Debug\net6.0\scopedcss\bundle\AngularAPI.styles.css
@@ -81,6 +86,7 @@ D:\login\AngularAPI\AngularAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.S
 D:\login\AngularAPI\AngularAPI\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 D:\login\AngularAPI\AngularAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\login\AngularAPI\AngularAPI\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+D:\login\AngularAPI\AngularAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\login\Backend\AngularAPI\bin\Debug\net6.0\appsettings.Development.json
 D:\login\Backend\AngularAPI\bin\Debug\net6.0\appsettings.json
 D:\login\Backend\AngularAPI\bin\Debug\net6.0\AngularAPI.exe
@@ -91,6 +97,7 @@ D:\login\Backend\AngularAPI\bin\Debug\net6.0\AngularAPI.pdb
 D:\login\Backend\AngularAPI\bin\Debug\net6.0\Azure.Core.dll
 D:\login\Backend\AngularAPI\bin\Debug\net6.0\Azure.Identity.dll
 D:\login\Backend\AngularAPI\bin\Debug\net6.0\Humanizer.dll
+D:\login\Backend\AngularAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\login\Backend\AngularAPI\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\login\Backend\AngularAPI\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 D:\login\Backend\AngularAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll

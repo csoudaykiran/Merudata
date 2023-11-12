@@ -1,11 +1,13 @@
-﻿using AngularAPI.Context;
-using AngularAPI.Models;
+﻿// Controllers/BookingsController.cs
 using Microsoft.AspNetCore.Mvc;
+using AngularAPI.Context;
+using AngularAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace AngularAPI.Controllers
+namespace MovieTicketBookingApp.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class BookingController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -15,83 +17,34 @@ namespace AngularAPI.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IActionResult GetBookings()
-        {
-            var bookings = _context.Bookings.ToList();
-            return Ok(bookings);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetBooking(int id)
-        {
-            var booking = _context.Bookings.FirstOrDefault(b => b.BookingId == id);
-
-            if (booking == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(booking);
-        }
-
         [HttpPost]
-        public IActionResult CreateBooking([FromBody] Booking booking)
+        public ActionResult<Booking> PostBooking(Booking booking)
         {
-            // Add validation if needed
-
-            // Set the selected date (assuming it's provided from the client)
-            booking.SelectedDate = DateTime.Now;
-
-            // Calculate total cost based on selected seats and other factors
-            // This logic depends on your specific requirements
-
-            _context.Bookings.Add(booking);
-            _context.SaveChanges();
-
-            return CreatedAtAction(nameof(GetBooking), new { id = booking.BookingId }, booking);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateBooking(int id, [FromBody] Booking updatedBooking)
-        {
-            // Add validation if needed
-
-            var existingBooking = _context.Bookings.FirstOrDefault(b => b.BookingId == id);
-
-            if (existingBooking == null)
+            try
             {
-                return NotFound();
+                _context.Bookings.Add(booking);
+                _context.SaveChanges();
+
+                return CreatedAtAction("GetBooking", new { Id = booking.Id }, booking);
             }
-
-            existingBooking.CinemaHallId = updatedBooking.CinemaHallId;
-            existingBooking.Username = updatedBooking.Username;
-            existingBooking.SelectedDate = DateTime.Now; // Update the selected date if needed
-            existingBooking.SelectedShow = updatedBooking.SelectedShow;
-            existingBooking.SelectedSeats = updatedBooking.SelectedSeats;
-            existingBooking.TotalCost = updatedBooking.TotalCost;
-
-            // Update other properties as needed
-
-            _context.SaveChanges();
-
-            return Ok(existingBooking);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteBooking(int id)
+        [HttpGet("{Id}")]
+        public ActionResult<Booking> GetBooking(int Id)
         {
-            var booking = _context.Bookings.FirstOrDefault(b => b.BookingId == id);
+            var booking = _context.Bookings.Find(Id);
 
             if (booking == null)
             {
                 return NotFound();
             }
 
-            _context.Bookings.Remove(booking);
-            _context.SaveChanges();
-
-            return NoContent();
+            return booking;
         }
+
     }
 }

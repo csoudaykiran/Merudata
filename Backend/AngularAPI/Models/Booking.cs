@@ -1,16 +1,21 @@
-﻿namespace AngularAPI.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
+
+namespace AngularAPI.Models
 {
     public class Booking
     {
-        public int BookingId { get; set; }
-        public int CinemaHallId { get; set; }
-        public string Username { get; set; }
-        public DateTime SelectedDate { get; set; }
-        public string SelectedShow { get; set; }
-        public string SelectedSeats { get; set; }
-        public decimal TotalCost { get; set; }
+        [Key]
+        public int Id { get; set; }
 
-        // Navigation properties
-        public CinemaHall CinemaHall { get; set; }
+        public string Name { get; set; }
+
+        public string MovieName { get; set; }
+        public string TheaterName { get; set; }
+        public string SelectedSeatsText { get; set; }
+        public string SelectedDate { get; set; }
+        public string SelectedTime { get; set; }
+        public decimal TotalFare { get; set; }
     }
 }

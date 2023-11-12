@@ -1,36 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Movie Tickets</title>
-    <!-- Add your CSS stylesheets and JavaScript files here -->
-</head>
-<body>
-    <header>
-        <h1>BookMyTickets - Your Online Movie Ticket Booking Platform</h1>
-        <!-- Add your navigation menu or header content here -->
-    </header>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">Project-k</a>
 
-    <main>
-        <section class="movie-list">
-            <h2>Now Showing</h2>
-            <!-- List of movies with images and details -->
-        </section>
+    <!-- Search bar -->
+    <form class="form-inline">
+      <input class="form-control mr-2" type="search" placeholder="Search City" [(ngModel)]="cityFilter" name="cityFilter" (input)="filterCities()" />
+    </form>
 
-        <section class="booking-form">
-            <h2>Book Tickets</h2>
-            <form action="" method="post">
-                <!-- Movie selection dropdown, date, time, and seat selection -->
-                <!-- Customer details (name, email, phone) -->
-                <!-- Payment information (credit card, etc.) -->
-                <button type="submit">Confirm Booking</button>
-            </form>
-        </section>
-    </main>
+    <div class="navbar-text">
+      <span class="welcome-text">Welcome, {{fullName}} </span>
+    </div>
 
-    <footer>
-        <p>&copy; 2023 BookMyTickets. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+    <button (click)="logout()" class="btn btn-danger ml-auto">Log Out</button>
+  </div>
+</nav>
+<div class="container">
+  <h2>Select a City</h2>
+  <div class="row">
+    <div class="col-md-2" *ngFor="let city of filteredCities">
+      <button class="btn btn-primary city-button" (click)="selectCity(city)">{{ city.cityName }}</button>
+    </div>
+  </div>
+  <p *ngIf="selectedCity">Selected City: {{ selectedCity }}</p>
+</div>
+

@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieTicketBookingApp.Models
+namespace AngularAPI.Models
 {
     public class City
     {
         [Key]
-        public int CityId { get; set; }
+        public int CityID { get; set; }
 
         [Required]
-        [StringLength(100)]
         public string CityName { get; set; }
 
-        // Other city-related properties can be added here
+        
     }
 }

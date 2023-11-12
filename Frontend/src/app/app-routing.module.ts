@@ -3,20 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { HomeComponent } from './components/home/home.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { CityComponent } from './components/city/city.component';
+import { authGaurd } from './gaurds/auth.guard';
 import { MoviesComponent } from './components/movies/movies.component';
-import { LocationComponent } from './components/location/location.component';
+import { TheatersComponent } from './components/theaters/theaters.component';
+import { BookingComponent } from './components/booking/booking.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/signup', pathMatch: 'full' },
   {path:'login',component: LoginComponent},
   {path:'signup',component: SignupComponent},
-  {path:'',component: LoginComponent},
-  {path: 'dashboard',component: HomeComponent},
-  // {path:'dashboard/contact',component:CityComponent},
-  {path:'dashboard/contact',component:MoviesComponent},
-  {path:'dashboard/location',component:LocationComponent},
+  {path: 'dashboard', component: DashboardComponent,canActivate:[authGaurd]},
+  { path: 'movies/:cityID', component: MoviesComponent  },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'theaters/:movieId', component: TheatersComponent },
+  { path: 'booking', component: BookingComponent },
+  { path: 'confirmation', component: ConfirmationComponent},
+  {path: 'dashboard', component: DashboardComponent,canActivate:[authGaurd]}
 ];
 
 @NgModule({

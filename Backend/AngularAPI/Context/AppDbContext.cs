@@ -1,6 +1,6 @@
-﻿using AngularAPI.Models;
+﻿using AngularAPI.Migrations;
+using AngularAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using MovieTicketBookingApp.Models;
 using System.Reflection.Emit;
 
 namespace AngularAPI.Context
@@ -12,37 +12,34 @@ namespace AngularAPI.Context
         }
 
         public DbSet<User> Users { get; set; }
-        
+
         public DbSet<City> Cities { get; set; }
 
         public DbSet<Movie> Movies { get; set; }
 
-        public DbSet<Seat> seats { get; set; }
+        public DbSet<Theater> Theater { get; set; }
 
-        public DbSet<CinemaHall> CinemaHalls { get; set; }
+        public DbSet<Screens> Screens { get; set; }
 
-        public DbSet<Booking> Bookings { get; set; }    
+        public DbSet<Seating> Seating { get; set; }
 
-        public DbSet<Hall> Halls { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
             modelbuilder.Entity<User>().ToTable("users");
-
             modelbuilder.Entity<City>().ToTable("cities");
-
             modelbuilder.Entity<Movie>().ToTable("movies");
-
-
-
-            modelbuilder.Entity<CinemaHall>()
-            .HasOne(ch => ch.Movie)
-            .WithMany()
-            .HasForeignKey(ch => ch.MovieId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-            base.OnModelCreating(modelbuilder);
+            modelbuilder.Entity<Theater>().ToTable("Theaters");
+            modelbuilder.Entity<Screens>().ToTable("Screens");
+            modelbuilder.Entity<Seating>().ToTable("Seatings");
+            modelbuilder.Entity<Booking>().ToTable("BookingInfo");
 
         }
+
+
     }
 }

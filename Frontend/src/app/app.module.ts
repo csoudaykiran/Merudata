@@ -1,24 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {MatIconModule} from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { HomeComponent } from './components/home/home.component';
-import { TestService } from './test.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ContactComponent } from './components/contact/contact.component';
-import { CityComponent } from './components/city/city.component';
+import { NgToastModule } from 'ng-angular-popup';
 import { MoviesComponent } from './components/movies/movies.component';
-import { LocationComponent } from './components/location/location.component';
+import { MovieService } from 'src/app/services/movie.service';
+import { CommonModule } from '@angular/common';
+import { TheatersComponent } from './components/theaters/theaters.component';
+import { BookingComponent } from './components/booking/booking.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { UserStoreService } from './services/user-store.service';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -27,26 +24,25 @@ import { LocationComponent } from './components/location/location.component';
     LoginComponent,
     SignupComponent,
     DashboardComponent,
-    HomeComponent,
-    NavbarComponent,
-    ContactComponent,
-    CityComponent,
     MoviesComponent,
-    LocationComponent,
+    TheatersComponent,
+    BookingComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatButtonToggleModule,
-    BrowserAnimationsModule,
+    NgToastModule,
     FormsModule,
+    CommonModule
   ],
-  providers: [TestService],
+  providers: [
+    MovieService,
+    UserStoreService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

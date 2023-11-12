@@ -1,34 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AngularAPI.Context; // Import your DbContext
-using MovieTicketBookingApp.Models; // Import your City model
+﻿// MovieController.cs
 
-namespace YourNamespace.Controllers
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using AngularAPI.Context; // Update the namespace
+using AngularAPI.Models;
+
+namespace MovieTicketBookingApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
     {
-        private readonly AppDbContext _context; // Replace with your actual DbContext
+        private readonly AppDbContext _context;
 
-        public MovieController(AngularAPI.Context.AppDbContext context)
+        public MovieController(AppDbContext context)
         {
             _context = context;
         }
 
         // GET: api/Movie
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+        public IActionResult GetMovies()
         {
-            var movies = await _context.Movies.ToListAsync();
+            var movies = _context.Movies;
             return Ok(movies);
         }
 
-        // GET: api/Movie/5
+        // GET: api/Movie/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(int id)
+        public IActionResult GetMovie(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
+            var movie = _context.Movies.Find(id);
 
             if (movie == null)
             {
@@ -37,89 +39,90 @@ namespace YourNamespace.Controllers
 
             return Ok(movie);
         }
-
-        [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+        [HttpGet("ByCity/{cityID}")]
+        public IActionResult GetMoviesByCity(int cityID)
         {
-            // Ensure the specified location exists
-            var location = await _context.Cities.FindAsync(movie.CityId);
+            var movies = _context.Movies
+                .Where(m => m.CityID == cityID)
+                .Join(
+                    _context.Cities,
+                    movie => movie.CityID,
+                    city => city.CityID,
+                    (movie, city) => new
+                    {
+                        MovieID = movie.MovieId,
+                        Title = movie.Title,
+                        Language = movie.Language,
+                        DurationMinutes = movie.DurationMinutes,
+                        CityName = city.CityName, // Include the city name
+                        PosterUrl = movie.PosterUrl,
+                        ReleaseDate = movie.ReleaseDate
+                    }
+                )
+                .ToList();
 
-            if (location == null)
-            {
-                return BadRequest("Invalid LocationId");
-            }
-
-            // Link the location with the movie
-            movie.City = location;
-
-            _context.Movies.Add(movie);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetMovie), new { id = movie.MovieID }, movie);
+            return Ok(movies);
         }
 
 
-
-        // PUT: api/Movie/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(int id, Movie movie)
+        // POST: api/Movie
+        [HttpPost]
+        public IActionResult CreateMovie([FromBody] Movie movie, int CityID)
         {
-            if (id != movie.MovieID)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Check if the city with the specified CityID exists
+            var city = _context.Cities.Find(CityID);
+            if (city == null)
+            {
+                return NotFound("City not found");
+            }
+
+            // Assign the CityID to the movie
+            movie.CityID = CityID;
+
+            _context.Movies.Add(movie);
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(GetMovie), new { id = movie.MovieId }, movie);
+        }
+
+        // PUT: api/Movie/{id}
+        [HttpPut("{id}")]
+        public IActionResult UpdateMovie(int id, [FromBody] Movie movie)
+        {
+            if (id != movie.MovieId)
             {
                 return BadRequest();
             }
 
-            // Ensure the specified location exists
-            var location = await _context.Cities.FindAsync(movie.CityId);
-
-            if (location == null)
-            {
-                return BadRequest("Invalid LocationId");
-            }
-
-            // Link the location with the movie
-            movie.City = location;
-
             _context.Entry(movie).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MovieExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _context.SaveChanges();
 
             return NoContent();
         }
 
-        // DELETE: api/Movie/5
+        // DELETE: api/Movie/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMovie(int id)
+        public IActionResult DeleteMovie(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
+            var movie = _context.Movies.Find(id);
+
             if (movie == null)
             {
                 return NotFound();
             }
 
             _context.Movies.Remove(movie);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return NoContent();
         }
 
-        private bool MovieExists(int id)
-        {
-            return _context.Movies.Any(e => e.MovieID == id);
-        }
+       
+
     }
 }
